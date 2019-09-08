@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "es5",
+    "outDir": "./dist",
+    "typeRoots": [
+      "./node_modules/@types/"
+    ],
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmitOnError": true,
+    "noUnusedLocals": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noImplicitUseStrict": true,
+    "pretty": true,
+    "sourceMap": true,
+    "strictNullChecks": true
+  },
+  "exclude": [
+    "./node_modules/*",
+    "./dist/*",
+    "./test",
+    "./playground"
+  ]
+}
