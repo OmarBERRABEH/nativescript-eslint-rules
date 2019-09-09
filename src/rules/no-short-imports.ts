@@ -1,5 +1,7 @@
 export default {
+    name: "no-short-imports",
     meta: {
+        type: "problem",
         docs: {
             description: "Disallow use of console",
             category: "Best Practices",
