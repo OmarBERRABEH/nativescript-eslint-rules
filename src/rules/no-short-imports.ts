@@ -9,29 +9,21 @@ export default {
     },
     create(context) {
         return {
-            ImportDeclaration: (node) => {
-                const importPath = node.source;
-                if (isDisallowedPath(importPath)) {
-                    context.report({
-                        node,
-                        message: "Using short imports from 'tns-core-modules' is not allowed.",
-                        fix: createFixer(importPath),
-                    });
+            ImportDeclaration: (importNode) => {
+                const source = importNode.source;
+                if (isDisallowedPath(source)) {
+                    context.report(getReport(importNode, source));
                 }
             },
-            CallExpression: (node) => {
-                const { callee, arguments: args } = node;
+            CallExpression: (importNode) => {
+                const { callee, arguments: args } = importNode;
                 if (callee.name !== "require" || !args.length) {
                     return;
                 }
 
-                const importPath = args[0];
-                if (isDisallowedPath(importPath)) {
-                    context.report({
-                        node,
-                        message: "Using short imports from 'tns-core-modules' is not allowed.",
-                        fix: createFixer(importPath),
-                    });
+                const source = args[0];
+                if (isDisallowedPath(source)) {
+                    context.report(getReport(importNode, source));
                 }
             },
         };
@@ -45,13 +37,15 @@ function isDisallowedPath(node) {
     return DISALLOWED_PATHS.indexOf(path) > -1;
 }
 
-function fixPath(path) {
-    const CORE_MODULES_PREFIX = "tns-core-modules";
-
-    return `${CORE_MODULES_PREFIX}/${path}`;
+function getReport(importNode, sourceNode) {
+    return {
+        node: importNode,
+        message: "Using short imports from 'tns-core-modules' is not allowed.",
+        fix: getFixer(sourceNode),
+    };
 }
 
-function createFixer(node) {
+function getFixer(node) {
     const disallowedPath = node.value;
     const fixedPath = fixPath(disallowedPath);
 
@@ -61,4 +55,10 @@ function createFixer(node) {
     return (fixer) => {
         return fixer.replaceText(node, fixedRawPath);
     };
+}
+
+function fixPath(path) {
+    const CORE_MODULES_PREFIX = "tns-core-modules";
+
+    return `${CORE_MODULES_PREFIX}/${path}`;
 }
