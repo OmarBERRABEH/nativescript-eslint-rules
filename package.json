@@ -1,9 +1,9 @@
 {
-  "name": "nativescript-eslint-rules",
+  "name": "@nativescript/eslint-plugin",
   "version": "0.0.0",
   "description": "A set of ESLint rules for NativeScript projects.",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
   "keywords": [
     "NativeScript",
     "eslint-plugin",
