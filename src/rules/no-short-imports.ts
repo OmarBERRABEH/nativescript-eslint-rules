@@ -21,7 +21,7 @@ export default {
             },
             CallExpression: (importNode) => {
                 const { callee, arguments: args } = importNode;
-                if (callee.name !== "require" || !args.length) {
+                if (callee.name !== "require" && callee.type !== "Import") {
                     return;
                 }
 
