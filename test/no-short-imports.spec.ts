@@ -28,6 +28,10 @@ ruleTester.run("no-short-imports", rule as Rule.RuleModule, {
             "import SearchBarExports from \"tns-core-modules/ui/search-bar\"",
         ),
         getInvalidTest(
+            "const searchBarModule = import(\"ui/search-bar\");",
+            "const searchBarModule = import(\"tns-core-modules/ui/search-bar\");",
+        ),
+        getInvalidTest(
             "import searchBarModule = require(\"ui/search-bar\");",
             "import searchBarModule = require(\"tns-core-modules/ui/search-bar\");",
         ),
