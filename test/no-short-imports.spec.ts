@@ -4,9 +4,9 @@ import rule from "../src/rules/no-short-imports";
 
 const ruleTester = new RuleTester({
     parserOptions: {
-        ecmaVersion: 6,
         sourceType: "module",
     },
+    parser: "@typescript-eslint/parser",
 });
 
 ruleTester.run("no-short-imports", rule as Rule.RuleModule, {
