@@ -1,3 +1,7 @@
+import { DISALLOWED_PATHS } from "./disallowed-paths";
+
+const CORE_MODULES_PREFIX = "tns-core-modules";
+
 export default {
     name: "no-short-imports",
     meta: {
@@ -40,9 +44,8 @@ function checkDisallowedAndReport(importNode, source, context) {
 
 function isDisallowedPath(node) {
     const path = node.value;
-    const DISALLOWED_PATHS = ["ui/search-bar"];
 
-    return DISALLOWED_PATHS.indexOf(path) > -1;
+    return DISALLOWED_PATHS.some((disallowedPath) => disallowedPath.startsWith(path));
 }
 
 function getReport(importNode, sourceNode) {
@@ -66,7 +69,5 @@ function getFixer(node) {
 }
 
 function fixPath(path) {
-    const CORE_MODULES_PREFIX = "tns-core-modules";
-
     return `${CORE_MODULES_PREFIX}/${path}`;
 }
