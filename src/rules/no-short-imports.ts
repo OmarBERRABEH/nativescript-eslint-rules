@@ -11,11 +11,13 @@ export default {
     },
     create(context) {
         return {
+            TSExternalModuleReference: (importNode) => {
+                const source = importNode.expression;
+                checkDisallowedAndReport(importNode, source, context);
+            },
             ImportDeclaration: (importNode) => {
                 const source = importNode.source;
-                if (isDisallowedPath(source)) {
-                    context.report(getReport(importNode, source));
-                }
+                checkDisallowedAndReport(importNode, source, context);
             },
             CallExpression: (importNode) => {
                 const { callee, arguments: args } = importNode;
@@ -24,13 +26,17 @@ export default {
                 }
 
                 const source = args[0];
-                if (isDisallowedPath(source)) {
-                    context.report(getReport(importNode, source));
-                }
+                checkDisallowedAndReport(importNode, source, context);
             },
         };
     },
 };
+
+function checkDisallowedAndReport(importNode, source, context) {
+    if (isDisallowedPath(source)) {
+        context.report(getReport(importNode, source));
+    }
+}
 
 function isDisallowedPath(node) {
     const path = node.value;
