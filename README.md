@@ -7,7 +7,7 @@ This project contains ESLint rules useful for NativeScript projects.
 1. Install the necessary dependencies:
 
 ```
-npm i -D @nativescript/eslint-plugin @typescript-eslint/parser eslint
+npm i -D eslint-plugin-nativescript @typescript-eslint/parser eslint
 ```
 
 2. Add an `.eslintrc` config file:
@@ -20,9 +20,9 @@ npm i -D @nativescript/eslint-plugin @typescript-eslint/parser eslint
     "parserOptions": {
         "sourceType": "module"
     },
-    "plugins": ["@nativescript"],
+    "plugins": ["nativescript"],
     "rules": {
-        "@nativescript/no-short-imports": "error"
+        "nativescript/no-short-imports": "error"
     }
 }
 ```
@@ -64,7 +64,7 @@ npx eslint --ext=ts --fix src/
 1. Install the necessary dependencies:
 
 ```
-npm i -D @nativescript/eslint-plugin eslint
+npm i -D eslint-plugin-nativescript eslint
 ```
 
 2. Add an `.eslintrc` config file:
@@ -76,9 +76,9 @@ npm i -D @nativescript/eslint-plugin eslint
     "parserOptions": {
         "ecmaVersion": 2015
     },
-    "plugins": ["@nativescript"],
+    "plugins": ["nativescript"],
     "rules": {
-        "@nativescript/no-short-imports": "error"
+        "nativescript/no-short-imports": "error"
     }
 }
 ```
